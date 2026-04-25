@@ -3,7 +3,7 @@
 public class Articulo
 {
     public Articulo(){}
-    public Articulo(int id,string? Codigo,string? Nombre,string? Descripcion,decimal? Precio,int? idMarca,int? idCategoria)
+    public Articulo(int id, string? Codigo,string? Nombre,string? Descripcion,decimal? Precio,int? idMarca,int? idCategoria)
     {
         this.id = id;
         this.Codigo = Codigo;

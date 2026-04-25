@@ -29,11 +29,12 @@ public class RepositorioArticulo : IrepoArticulo
         return articulo;
     }
 
-    public async Task InsertarArticulo(Articulo obj)
+    public async Task<int> InsertarArticulo(Articulo obj)
     {
-        EntityArticulo articulo = new EntityArticulo(obj.GetId(),obj.GetCodigo(),obj.GetNombre(),obj.GetDescripcion(),obj.GetPrecio(),obj.GetIdMarca(),obj.GetIdCategoria());
+        EntityArticulo articulo = new EntityArticulo(0,obj.GetCodigo(),obj.GetNombre(),obj.GetDescripcion(),obj.GetPrecio(),obj.GetIdMarca(),obj.GetIdCategoria());
         context.Articulos.Add(articulo);
         await context.SaveChangesAsync();
+        return articulo.id;
     }
 
     public async Task Actualizar(Articulo obj)

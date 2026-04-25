@@ -4,9 +4,9 @@ public class MotorBusquedaArticulo
     {
         return propiedad switch
         {
-            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo.Contains(Valor)),
-            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre.Contains(Valor)),
-            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion.Contains(Valor)),
+            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo != null && x.Codigo.Contains(Valor)),
+            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre != null && x.Nombre.Contains(Valor)),
+            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion != null && x.Descripcion.Contains(Valor)),
             _=> throw new Exception("Error del programa")
         };
     }
@@ -14,9 +14,9 @@ public class MotorBusquedaArticulo
     {
         return propiedad switch
         {
-            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo.StartsWith(Valor)),
-            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre.StartsWith(Valor)),
-            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion.StartsWith(Valor)),
+            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo != null && x.Codigo.StartsWith(Valor)),
+            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre != null && x.Nombre.StartsWith(Valor)),
+            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion != null && x.Descripcion.StartsWith(Valor)),
             _=> throw new Exception("Error del programa")
         };
     }
@@ -24,9 +24,9 @@ public class MotorBusquedaArticulo
     {
         return propiedad switch
         {
-            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo.EndsWith(Valor)),
-            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre.EndsWith(Valor)),
-            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion.EndsWith(Valor)),
+            PropiedadesArticulo.Codigo => query.Where(x=>x.Codigo != null && x.Codigo.EndsWith(Valor)),
+            PropiedadesArticulo.Nombre => query.Where(x=>x.Nombre != null && x.Nombre.EndsWith(Valor)),
+            PropiedadesArticulo.Descripcion => query.Where(x=>x.Descripcion != null && x.Descripcion.EndsWith(Valor)),
             _=> throw new Exception("Error del programa")
         };
     }

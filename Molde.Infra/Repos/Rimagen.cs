@@ -13,6 +13,14 @@ public class RepositorioImagen : IrepoImagen
         this.motor = motor;
     }
 
+    public async Task<List<Imagen>> ObtenerImagenesPorArticulo(int idArticulo)
+    {
+        return await context.Imagenes
+            .Where(e => e.idArticulo == idArticulo)
+            .Select(e => new Imagen(e.id, e.imagenUrl, e.idArticulo))
+            .ToListAsync();
+    }
+
     public async Task<List<Imagen>> ObtenerImagenes()
     {
         var Resultado = await context.Imagenes.ToListAsync();

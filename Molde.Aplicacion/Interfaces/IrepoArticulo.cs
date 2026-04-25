@@ -6,7 +6,7 @@ namespace Molde.Aplicacion.Interfaces
     {
         public Task<List<Articulo>> ObtenerArticulos();
         public Task<Articulo?> CapturarArticulo(int id);
-        public Task InsertarArticulo(Articulo obj);
+        public Task<int> InsertarArticulo(Articulo obj);
         public Task Actualizar(Articulo obj);
         public Task Eliminar(int id);
         public Task<List<Articulo>> LosMayoresMenores(PropiedadesArticulo Propiedad,Ordenador Ordenar);

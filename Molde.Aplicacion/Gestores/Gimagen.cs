@@ -27,6 +27,11 @@ public class GestorImagen
         return await repo.ObtenerImagenes();
     }
 
+    public async Task<List<Imagen>> EsIgual(int idArticulo)
+    {
+        return await repo.ObtenerImagenesPorArticulo(idArticulo);
+    }
+
     public async Task<Imagen?> CapturarImagen(int id)
     {
         return await repo.CapturarImagen(id);

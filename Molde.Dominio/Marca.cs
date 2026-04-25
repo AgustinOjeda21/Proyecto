@@ -7,6 +7,7 @@ public class Marca
         this.id = id;
         this.Descripcion = Descripcion;
     }
+
     public int id {get; private set;}
     public string? Descripcion {get; private set;}
     public int GetId()

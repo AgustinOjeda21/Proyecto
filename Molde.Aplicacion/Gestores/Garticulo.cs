@@ -13,18 +13,18 @@ public class GestorArticulo : IgesArticulo
         this.gesmar = gesmar;
     }
 
-    public async Task<ResultadoArticulo> Cargar(Articulo obj)
+    public async Task<(ResultadoArticulo resultado, int idGenerado)> Cargar(Articulo obj)
     {
         if(!await gescat.ExisteCategoria(obj.GetIdCategoria())&&obj.GetIdCategoria() is not null)
         {
-            return ResultadoArticulo.NoExisteCategoria;
+            return (ResultadoArticulo.NoExisteCategoria, 0);
         }
         if(!await gesmar.ExisteMarca(obj.GetIdMarca())&&obj.GetIdMarca() is not null)
         {
-            return ResultadoArticulo.NoExisteMarca;
+            return (ResultadoArticulo.NoExisteMarca, 0);
         }
-        await repo.InsertarArticulo(obj);
-        return ResultadoArticulo.EjecuccionCorrecta;
+        int id = await repo.InsertarArticulo(obj);
+        return (ResultadoArticulo.EjecuccionCorrecta, id);
     }
     public async Task<List<Articulo>> ObtenerArticulos()
     {

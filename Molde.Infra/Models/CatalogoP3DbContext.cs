@@ -51,10 +51,8 @@ public partial class CatalogoP3DbContext : DbContext
 
         modelBuilder.Entity<EntityImagen>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("IMAGENES");
-
+            entity.ToTable("IMAGENES");
+            entity.HasKey(e => e.id);
             entity.Property(e => e.id).ValueGeneratedOnAdd();
             entity.Property(e => e.imagenUrl)
                 .HasMaxLength(1000)

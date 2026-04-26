@@ -17,57 +17,61 @@ namespace WinForms
             Detalle.Click   += AbrirDetalle;
         }
 
-        private (GestorArticulo ga, GestorImagen gi) CrearGestores()
+        private (GestorArticulo ga, GestorImagen gi, GestorMarca gm, GestorCategoria gc) CrearGestores()
         {
             var options = new DbContextOptionsBuilder<CatalogoP3DbContext>()
                 .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=CATALOGO_P3_DB;Trusted_Connection=True;TrustServerCertificate=True")
                 .Options;
             var context = new CatalogoP3DbContext(options);
+            
+            var gestorCategoria = new GestorCategoria(new RepositorioCategoria(context, new MotorBusquedaCategoria()));
+            var gestorMarca = new GestorMarca(new RepositorioMarca(context, new MotorBusquedaMarca()));
+            
             var gestorArticulo = new GestorArticulo(
                 new RepositorioArticulo(context, new MotorBusquedaArticulo()),
-                new GestorCategoria(new RepositorioCategoria(context, new MotorBusquedaCategoria())),
-                new GestorMarca(new RepositorioMarca(context, new MotorBusquedaMarca()))
+                gestorCategoria,
+                gestorMarca
             );
             var gestorImagen = new GestorImagen(
                 new RepositorioImagen(context, new MotorBusquedaImagen()),
                 gestorArticulo
             );
-            return (gestorArticulo, gestorImagen);
+            return (gestorArticulo, gestorImagen, gestorMarca, gestorCategoria);
         }
 
         private void AbrirLista(object sender, EventArgs e)
         {
-            var (ga, gi) = CrearGestores();
+            var (ga, gi, _, _) = CrearGestores();
             new ListaArticulos(ga, gi).ShowDialog();
         }
 
         private void AbrirBuscar(object sender, EventArgs e)
         {
-            var (ga, gi) = CrearGestores();
+            var (ga, gi, _, _) = CrearGestores();
             new BuscarArticulo(ga, gi).ShowDialog();
         }
 
         private void AbrirAgregar(object sender, EventArgs e)
         {
-            var (ga, gi) = CrearGestores();
-            new AgregarArticulo(ga, gi).ShowDialog();
+            var (ga, gi, gm, gc) = CrearGestores();
+            new AgregarArticulo(ga, gi, gm, gc).ShowDialog();
         }
 
         private void AbrirModificar(object sender, EventArgs e)
         {
-            var (ga, gi) = CrearGestores();
-            new ModificarArticulo(ga, gi).ShowDialog();
+            var (ga, gi, gm, gc) = CrearGestores();
+            new ModificarArticulo(ga, gi, gm, gc).ShowDialog();
         }
 
         private void AbrirEliminar(object sender, EventArgs e)
         {
-            var (ga, _) = CrearGestores();
+            var (ga, _, _, _) = CrearGestores();
             new EliminarArticulo(ga).ShowDialog();
         }
 
         private void AbrirDetalle(object sender, EventArgs e)
         {
-            var (ga, gi) = CrearGestores();
+            var (ga, gi, _, _) = CrearGestores();
             new DetalleArticulo(ga, gi).ShowDialog();
         }
     }

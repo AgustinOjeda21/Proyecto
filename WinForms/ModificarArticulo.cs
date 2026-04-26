@@ -8,14 +8,39 @@ namespace WinForms
     {
         private readonly GestorArticulo gestorArticulo;
         private readonly GestorImagen gestorImagen;
+        private readonly GestorMarca gestorMarca;
+        private readonly GestorCategoria gestorCategoria;
         private Articulo? articuloActual;
         private List<Imagen> imagenesActuales = new();
 
-        public ModificarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen)
+        public ModificarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen,
+            GestorMarca gestorMarca, GestorCategoria gestorCategoria)
         {
             InitializeComponent();
             this.gestorArticulo = gestorArticulo;
             this.gestorImagen = gestorImagen;
+            this.gestorMarca = gestorMarca;
+            this.gestorCategoria = gestorCategoria;
+        }
+
+        private async void ModificarArticulo_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                var marcas = await gestorMarca.ObtenerMarcas();
+                cmbMarca.DataSource = marcas;
+                cmbMarca.DisplayMember = "Descripcion";
+                cmbMarca.ValueMember = "id";
+
+                var categorias = await gestorCategoria.ObtenerCategorias();
+                cmbCategoria.DataSource = categorias;
+                cmbCategoria.DisplayMember = "Descripcion";
+                cmbCategoria.ValueMember = "id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -39,8 +64,9 @@ namespace WinForms
                 txtNombre.Text = articuloActual.GetNombre() ?? "";
                 txtDescripcion.Text = articuloActual.GetDescripcion() ?? "";
                 txtPrecio.Text = articuloActual.GetPrecio()?.ToString() ?? "";
-                txtIdMarca.Text = articuloActual.GetIdMarca()?.ToString() ?? "";
-                txtIdCategoria.Text = articuloActual.GetIdCategoria()?.ToString() ?? "";
+                
+                cmbMarca.SelectedValue = articuloActual.GetIdMarca();
+                cmbCategoria.SelectedValue = articuloActual.GetIdCategoria();
 
                 imagenesActuales = await gestorImagen.EsIgual(id);
                 RefrescarListaImagenes();
@@ -105,19 +131,20 @@ namespace WinForms
 
             if (string.IsNullOrWhiteSpace(txtCodigo.Text) || string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtDescripcion.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text) ||
-                string.IsNullOrWhiteSpace(txtIdMarca.Text) || string.IsNullOrWhiteSpace(txtIdCategoria.Text))
+                cmbMarca.SelectedValue == null || cmbCategoria.SelectedValue == null)
             {
                 MessageBox.Show("Todos los campos son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!decimal.TryParse(txtPrecio.Text.Trim(), out decimal precio) ||
-                !int.TryParse(txtIdMarca.Text.Trim(), out int idMarca) ||
-                !int.TryParse(txtIdCategoria.Text.Trim(), out int idCategoria))
+            if (!decimal.TryParse(txtPrecio.Text.Trim(), out decimal precio))
             {
-                MessageBox.Show("Precio, ID Marca e ID Categoría deben ser numéricos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Precio debe ser numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            int idMarca = (int)cmbMarca.SelectedValue;
+            int idCategoria = (int)cmbCategoria.SelectedValue;
 
             try
             {
@@ -153,3 +180,4 @@ namespace WinForms
         private void btnCancelar_Click(object sender, EventArgs e) => this.Close();
     }
 }
+

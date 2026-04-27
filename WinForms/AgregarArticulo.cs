@@ -8,13 +8,38 @@ namespace WinForms
     {
         private readonly GestorArticulo gestorArticulo;
         private readonly GestorImagen gestorImagen;
+        private readonly GestorMarca gestorMarca;
+        private readonly GestorCategoria gestorCategoria;
         private readonly List<string> urlsImagenes = new();
 
-        public AgregarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen)
+        public AgregarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen, 
+            GestorMarca gestorMarca, GestorCategoria gestorCategoria)
         {
             InitializeComponent();
             this.gestorArticulo = gestorArticulo;
             this.gestorImagen = gestorImagen;
+            this.gestorMarca = gestorMarca;
+            this.gestorCategoria = gestorCategoria;
+        }
+
+        private async void AgregarArticulo_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                var marcas = await gestorMarca.ObtenerMarcas();
+                cmbMarca.DataSource = marcas;
+                cmbMarca.DisplayMember = "Descripcion";
+                cmbMarca.ValueMember = "id";
+
+                var categorias = await gestorCategoria.ObtenerCategorias();
+                cmbCategoria.DataSource = categorias;
+                cmbCategoria.DisplayMember = "Descripcion";
+                cmbCategoria.ValueMember = "id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnAgregarUrl_Click(object sender, EventArgs e)
@@ -40,8 +65,8 @@ namespace WinForms
                 string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtDescripcion.Text) ||
                 string.IsNullOrWhiteSpace(txtPrecio.Text) ||
-                string.IsNullOrWhiteSpace(txtIdMarca.Text) ||
-                string.IsNullOrWhiteSpace(txtIdCategoria.Text))
+                cmbMarca.SelectedValue == null ||
+                cmbCategoria.SelectedValue == null)
             {
                 MessageBox.Show("Todos los campos son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -52,16 +77,9 @@ namespace WinForms
                 MessageBox.Show("El precio debe ser un número válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (!int.TryParse(txtIdMarca.Text.Trim(), out int idMarca))
-            {
-                MessageBox.Show("El ID de Marca debe ser un número.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (!int.TryParse(txtIdCategoria.Text.Trim(), out int idCategoria))
-            {
-                MessageBox.Show("El ID de Categoría debe ser un número.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+
+            int idMarca = (int)cmbMarca.SelectedValue;
+            int idCategoria = (int)cmbCategoria.SelectedValue;
 
             try
             {

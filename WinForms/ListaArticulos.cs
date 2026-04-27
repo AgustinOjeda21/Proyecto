@@ -12,6 +12,8 @@ namespace WinForms
     {
         private readonly GestorArticulo gestorArticulo;
         private readonly GestorImagen gestorImagen;
+        private readonly GestorMarca gestorMarca;
+        private readonly GestorCategoria gestorCategoria;
         private List<Articulo> listaActual = new();
         private readonly bool listaPrecargada = false;
         private static readonly HttpClient httpClient = new HttpClient();
@@ -21,6 +23,12 @@ namespace WinForms
             InitializeComponent();
             this.gestorArticulo = gestorArticulo;
             this.gestorImagen = gestorImagen;
+            
+            // Crear gestores desde el contexto compartido (nota: esto es una solución temporal)
+            // Lo ideal sería recibirlos como parámetros, pero para mantener compatibilidad con el código existente
+            var context = new CatalogoP3DbContext();
+            this.gestorMarca = new GestorMarca(new RepositorioMarca(context, new MotorBusquedaMarca()));
+            this.gestorCategoria = new GestorCategoria(new RepositorioCategoria(context, new MotorBusquedaCategoria()));
         }
 
         public ListaArticulos(GestorArticulo gestorArticulo, GestorImagen gestorImagen, List<Articulo> lista)
@@ -128,7 +136,7 @@ namespace WinForms
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            var form = new AgregarArticulo(gestorArticulo, gestorImagen);
+            var form = new AgregarArticulo(gestorArticulo, gestorImagen, gestorMarca, gestorCategoria);
             form.ShowDialog();
             // Recargar lista tras agregar
             _ = RecargarListaAsync();

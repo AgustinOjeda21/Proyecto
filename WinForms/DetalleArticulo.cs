@@ -12,13 +12,17 @@ namespace WinForms
     {
         private readonly GestorArticulo gestorArticulo;
         private readonly GestorImagen gestorImagen;
+        private readonly GestorMarca gestorMarca;
+        private readonly GestorCategoria gestorCategoria;
         private static readonly HttpClient httpClient = new HttpClient();
 
-        public DetalleArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen)
+        public DetalleArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen,GestorMarca gestorMarca, GestorCategoria gestorCategoria)
         {
             InitializeComponent();
             this.gestorArticulo = gestorArticulo;
             this.gestorImagen = gestorImagen;
+            this.gestorMarca = gestorMarca;
+            this.gestorCategoria = gestorCategoria;
         }
 
         private async void btnBuscar_Click(object sender, EventArgs e)
@@ -38,13 +42,17 @@ namespace WinForms
                     return;
                 }
 
-                lblValId.Text        = articulo.GetId().ToString();
-                lblValCodigo.Text    = articulo.GetCodigo() ?? "-";
-                lblValNombre.Text    = articulo.GetNombre() ?? "-";
+                lblValId.Text = articulo.GetId().ToString();
+                lblValCodigo.Text = articulo.GetCodigo() ?? "-";
+                lblValNombre.Text = articulo.GetNombre() ?? "-";
                 lblValDescripcion.Text = articulo.GetDescripcion() ?? "-";
-                lblValPrecio.Text    = $"{articulo.GetPrecio():N2}";
-                lblValIdMarca.Text   = articulo.GetIdMarca()?.ToString() ?? "-";
-                lblValIdCategoria.Text = articulo.GetIdCategoria()?.ToString() ?? "-";
+                lblValPrecio.Text = $"{articulo.GetPrecio():N2}";
+                List<Marca> ListaMar = await gestorMarca.ObtenerMarcas();
+                List<Categoria> ListaCat = await gestorCategoria.ObtenerCategorias();
+                var Marca = ListaMar.Find(obj=>obj.GetId()==articulo.GetIdMarca());
+                var Categoria = ListaCat.Find(obj => obj.GetId() == articulo.GetIdCategoria());
+                lblValIdMarca.Text = Marca.GetDescripcion() ?? "-";
+                lblValIdCategoria.Text = Categoria.GetDescripcion() ?? "-";
 
                 var imagenes = await gestorImagen.EsIgual(id);
                 await CargarImagenAsync(imgArticulo1, imagenes.ElementAtOrDefault(0)?.GetimagenUrl());
@@ -76,5 +84,7 @@ namespace WinForms
         }
 
         private void btnCerrar_Click(object sender, EventArgs e) => this.Close();
+
+        
     }
 }

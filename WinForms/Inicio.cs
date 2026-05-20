@@ -71,8 +71,8 @@ namespace WinForms
 
         private void AbrirDetalle(object sender, EventArgs e)
         {
-            var (ga, gi, _, _) = CrearGestores();
-            new DetalleArticulo(ga, gi).ShowDialog();
+            var (ga, gi, gm, gc) = CrearGestores();
+            new DetalleArticulo(ga, gi,gm,gc).ShowDialog();
         }
     }
 }

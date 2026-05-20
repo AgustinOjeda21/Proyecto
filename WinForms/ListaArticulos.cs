@@ -121,17 +121,12 @@ namespace WinForms
             this.Close();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private async void btnAgregar_Click(object sender, EventArgs e)
         {
             var form = new AgregarArticulo(gestorArticulo, gestorImagen, gestorMarca, gestorCategoria);
             form.ShowDialog();
-            _ = RecargarListaAsync();
-        }
-
-        private async Task RecargarListaAsync()
-        {
-             listaActual = await gestorArticulo.ObtenerArticulos();
-             MostrarEnGrilla(listaActual);
+            listaActual = await gestorArticulo.ObtenerArticulos();
+            MostrarEnGrilla(listaActual);
         }
     }
 }

@@ -41,8 +41,8 @@ namespace WinForms
 
         private void AbrirLista(object sender, EventArgs e)
         {
-            var (ga, gi, _, _) = CrearGestores();
-            new ListaArticulos(ga, gi).ShowDialog();
+            var (ga, gi, gm, gc) = CrearGestores();
+            new ListaArticulos(ga, gi,gc,gm).ShowDialog();
         }
 
         private void AbrirBuscar(object sender, EventArgs e)

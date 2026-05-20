@@ -8,12 +8,16 @@ namespace WinForms
     {
         private readonly GestorArticulo gestorArticulo;
         private readonly GestorImagen gestorImagen;
+        private readonly GestorCategoria gestorCategoria;
+        private readonly GestorMarca gestorMarca;
 
         public BuscarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen)
         {
             InitializeComponent();
             this.gestorArticulo = gestorArticulo;
             this.gestorImagen = gestorImagen;
+            this.gestorMarca = gestorMarca;
+            this.gestorCategoria = gestorCategoria;
             cmbFiltro.SelectedIndex = 0;
         }
 
@@ -44,11 +48,11 @@ namespace WinForms
 
                 if (resultado.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron artículos con ese filtro.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontraron artú€ulos con ese filtro.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                var ventana = new ListaArticulos(gestorArticulo, gestorImagen, resultado);
+                var ventana = new ListaArticulos(gestorArticulo, gestorImagen,gestorCategoria,gestorMarca);
                 ventana.ShowDialog();
             }
             catch (Exception ex)

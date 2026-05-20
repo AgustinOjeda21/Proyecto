@@ -72,6 +72,13 @@ namespace WinForms
                 return;
             }
 
+            List<Articulo> Lista = await gestorArticulo.ObtenerArticulos();
+            if(Lista.Any(obj => obj.Codigo == txtCodigo.Text))
+            {
+                MessageBox.Show("El codigo ingresado ya existe.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!Decimal.TryParse(txtPrecio.Text,out decimal result)||result<=0)
             {
                 MessageBox.Show("El precio debe ser un numero valido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);

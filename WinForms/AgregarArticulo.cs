@@ -12,7 +12,7 @@ namespace WinForms
         private readonly GestorCategoria gestorCategoria;
         private readonly List<string> urlsImagenes = new();
 
-        public AgregarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen, 
+        public AgregarArticulo(GestorArticulo gestorArticulo, GestorImagen gestorImagen,
             GestorMarca gestorMarca, GestorCategoria gestorCategoria)
         {
             InitializeComponent();
@@ -72,11 +72,12 @@ namespace WinForms
                 return;
             }
 
-            if (!decimal.TryParse(txtPrecio.Text.Trim(), out decimal precio))
+            if (!Decimal.TryParse(txtPrecio.Text,out decimal result)||result<=0)
             {
-                MessageBox.Show("El precio debe ser un número válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El precio debe ser un numero valido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            decimal precio = decimal.Parse(txtPrecio.Text);
 
             int idMarca = (int)cmbMarca.SelectedValue;
             int idCategoria = (int)cmbCategoria.SelectedValue;
@@ -94,18 +95,17 @@ namespace WinForms
                         MessageBox.Show("La marca indicada no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     case ResultadoArticulo.NoExisteCategoria:
-                        MessageBox.Show("La categoría indicada no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("La categorú} indicada no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                 }
 
-                // Guardar imágenes con el id del artículo recién creado (atomicidad)
                 foreach (string url in urlsImagenes)
                 {
                     var imagen = new Imagen(0, url, idGenerado);
                     await gestorImagen.Cargar(imagen);
                 }
 
-                MessageBox.Show("Artículo agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Artú€ulo agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
@@ -118,5 +118,7 @@ namespace WinForms
         {
             this.Close();
         }
+
+        
     }
 }

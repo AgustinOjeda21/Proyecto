@@ -35,6 +35,7 @@
             Detalle = new Button();
             Buscar = new Button();
             Agregar = new Button();
+            Gestion = new Button();
             SuspendLayout();
             // 
             // title
@@ -64,7 +65,7 @@
             // 
             Eliminar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Eliminar.Cursor = Cursors.Hand;
-            Eliminar.Location = new Point(289, 377);
+            Eliminar.Location = new Point(289, 308);
             Eliminar.Name = "Eliminar";
             Eliminar.Size = new Size(374, 43);
             Eliminar.TabIndex = 4;
@@ -75,7 +76,7 @@
             // 
             Modificar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Modificar.Cursor = Cursors.Hand;
-            Modificar.Location = new Point(289, 311);
+            Modificar.Location = new Point(289, 259);
             Modificar.Name = "Modificar";
             Modificar.Size = new Size(374, 43);
             Modificar.TabIndex = 5;
@@ -86,7 +87,7 @@
             // 
             Detalle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Detalle.Cursor = Cursors.Hand;
-            Detalle.Location = new Point(289, 447);
+            Detalle.Location = new Point(289, 355);
             Detalle.Name = "Detalle";
             Detalle.Size = new Size(374, 43);
             Detalle.TabIndex = 6;
@@ -97,7 +98,7 @@
             // 
             Buscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Buscar.Cursor = Cursors.Hand;
-            Buscar.Location = new Point(289, 177);
+            Buscar.Location = new Point(289, 159);
             Buscar.Name = "Buscar";
             Buscar.Padding = new Padding(10, 5, 10, 5);
             Buscar.Size = new Size(374, 43);
@@ -109,7 +110,7 @@
             // 
             Agregar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Agregar.Cursor = Cursors.Hand;
-            Agregar.Location = new Point(289, 245);
+            Agregar.Location = new Point(289, 209);
             Agregar.Name = "Agregar";
             Agregar.Padding = new Padding(10, 5, 10, 5);
             Agregar.Size = new Size(374, 43);
@@ -117,12 +118,25 @@
             Agregar.Text = "Agregar un artículo";
             Agregar.UseVisualStyleBackColor = true;
             // 
+            // Gestion
+            // 
+            Gestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            Gestion.Cursor = Cursors.Hand;
+            Gestion.Location = new Point(289, 404);
+            Gestion.Name = "Gestion";
+            Gestion.Size = new Size(374, 43);
+            Gestion.TabIndex = 9;
+            Gestion.Text = "Gestión de marcas y categorías";
+            Gestion.UseVisualStyleBackColor = true;
+            Gestion.Click += Gestion_Click;
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Menu;
             ClientSize = new Size(978, 576);
+            Controls.Add(Gestion);
             Controls.Add(Agregar);
             Controls.Add(Buscar);
             Controls.Add(Detalle);
@@ -147,5 +161,6 @@
         private Button Agregar;
         private Button Eliminar;
         private Button Detalle;
+        private Button Gestion;
     }
 }

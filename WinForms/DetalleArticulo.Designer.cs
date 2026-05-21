@@ -114,7 +114,7 @@
             // 
             lblValId.AutoSize = true;
             lblValId.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblValId.Location = new Point(75, 14);
+            lblValId.Location = new Point(85, 14);
             lblValId.Name = "lblValId";
             lblValId.Size = new Size(0, 15);
             lblValId.TabIndex = 1;
@@ -131,7 +131,7 @@
             // lblValCodigo
             // 
             lblValCodigo.AutoSize = true;
-            lblValCodigo.Location = new Point(75, 40);
+            lblValCodigo.Location = new Point(85, 40);
             lblValCodigo.Name = "lblValCodigo";
             lblValCodigo.Size = new Size(0, 15);
             lblValCodigo.TabIndex = 3;
@@ -148,7 +148,7 @@
             // lblValNombre
             // 
             lblValNombre.AutoSize = true;
-            lblValNombre.Location = new Point(75, 65);
+            lblValNombre.Location = new Point(85, 65);
             lblValNombre.Name = "lblValNombre";
             lblValNombre.Size = new Size(0, 15);
             lblValNombre.TabIndex = 5;
@@ -165,7 +165,7 @@
             // lblValDescripcion
             // 
             lblValDescripcion.AutoSize = true;
-            lblValDescripcion.Location = new Point(75, 92);
+            lblValDescripcion.Location = new Point(85, 92);
             lblValDescripcion.MaximumSize = new Size(262, 0);
             lblValDescripcion.Name = "lblValDescripcion";
             lblValDescripcion.Size = new Size(0, 15);
@@ -183,7 +183,7 @@
             // lblValPrecio
             // 
             lblValPrecio.AutoSize = true;
-            lblValPrecio.Location = new Point(75, 116);
+            lblValPrecio.Location = new Point(85, 116);
             lblValPrecio.Name = "lblValPrecio";
             lblValPrecio.Size = new Size(0, 15);
             lblValPrecio.TabIndex = 9;
@@ -200,7 +200,7 @@
             // lblValIdMarca
             // 
             lblValIdMarca.AutoSize = true;
-            lblValIdMarca.Location = new Point(75, 142);
+            lblValIdMarca.Location = new Point(85, 142);
             lblValIdMarca.Name = "lblValIdMarca";
             lblValIdMarca.Size = new Size(0, 15);
             lblValIdMarca.TabIndex = 11;
@@ -217,7 +217,7 @@
             // lblValIdCategoria
             // 
             lblValIdCategoria.AutoSize = true;
-            lblValIdCategoria.Location = new Point(75, 167);
+            lblValIdCategoria.Location = new Point(85, 167);
             lblValIdCategoria.Name = "lblValIdCategoria";
             lblValIdCategoria.Size = new Size(0, 15);
             lblValIdCategoria.TabIndex = 13;

@@ -10,11 +10,11 @@ namespace WinForms
         public Inicio()
         {
             InitializeComponent();
-            Buscar.Click   += AbrirBuscar;
-            Agregar.Click  += AbrirAgregar;
+            Buscar.Click += AbrirBuscar;
+            Agregar.Click += AbrirAgregar;
             Modificar.Click += AbrirModificar;
-            Eliminar.Click  += AbrirEliminar;
-            Detalle.Click   += AbrirDetalle;
+            Eliminar.Click += AbrirEliminar;
+            Detalle.Click += AbrirDetalle;
         }
 
         private (GestorArticulo ga, GestorImagen gi, GestorMarca gm, GestorCategoria gc) CrearGestores()
@@ -23,10 +23,10 @@ namespace WinForms
                 .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=CATALOGO_P3_DB;Trusted_Connection=True;TrustServerCertificate=True")
                 .Options;
             var context = new CatalogoP3DbContext(options);
-            
+
             var gestorCategoria = new GestorCategoria(new RepositorioCategoria(context, new MotorBusquedaCategoria()));
             var gestorMarca = new GestorMarca(new RepositorioMarca(context, new MotorBusquedaMarca()));
-            
+
             var gestorArticulo = new GestorArticulo(
                 new RepositorioArticulo(context, new MotorBusquedaArticulo()),
                 gestorCategoria,
@@ -42,7 +42,7 @@ namespace WinForms
         private void AbrirLista(object sender, EventArgs e)
         {
             var (ga, gi, gm, gc) = CrearGestores();
-            new ListaArticulos(ga, gi,gc,gm).ShowDialog();
+            new ListaArticulos(ga, gi, gc, gm).ShowDialog();
         }
 
         private void AbrirBuscar(object sender, EventArgs e)
@@ -72,7 +72,13 @@ namespace WinForms
         private void AbrirDetalle(object sender, EventArgs e)
         {
             var (ga, gi, gm, gc) = CrearGestores();
-            new DetalleArticulo(ga, gi,gm,gc).ShowDialog();
+            new DetalleArticulo(ga, gi, gm, gc).ShowDialog();
+        }
+
+        private void Gestion_Click(object sender, EventArgs e)
+        {
+            var (_, _, gm, gc) = CrearGestores();
+            new GestionMarcasCategorias(gm, gc).ShowDialog();
         }
     }
 }

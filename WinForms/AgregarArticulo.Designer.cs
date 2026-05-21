@@ -41,7 +41,7 @@ namespace WinForms
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(149, 25);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Agregar Artú€ulo";
+            lblTitulo.Text = "Agregar Artículo";
             // 
             // lblCodigo
             // 
@@ -137,7 +137,7 @@ namespace WinForms
             lblIdCategoria.Name = "lblIdCategoria";
             lblIdCategoria.Size = new Size(73, 15);
             lblIdCategoria.TabIndex = 11;
-            lblIdCategoria.Text = "Categorú} *:";
+            lblIdCategoria.Text = "Categoría *:";
             // 
             // cmbCategoria
             // 
@@ -245,7 +245,7 @@ namespace WinForms
             Margin = new Padding(3, 2, 3, 2);
             Name = "AgregarArticulo";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Agregar Artú€ulo";
+            Text = "Agregar Artículo";
             Load += AgregarArticulo_Load;
             ResumeLayout(false);
             PerformLayout();

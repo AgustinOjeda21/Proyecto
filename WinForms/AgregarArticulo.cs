@@ -112,7 +112,7 @@ namespace WinForms
                     await gestorImagen.Cargar(imagen);
                 }
 
-                MessageBox.Show("Artú€ulo agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Artículo agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)

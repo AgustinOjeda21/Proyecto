@@ -24,7 +24,7 @@ namespace WinForms
             ((System.ComponentModel.ISupportInitialize)numValor2).BeginInit();
             SuspendLayout();
 
-            lblTitulo.Text = "Buscar Artú€ulo"; lblTitulo.Font = new System.Drawing.Font("Segoe UI", 13F);
+            lblTitulo.Text = "Buscar Artículo"; lblTitulo.Font = new System.Drawing.Font("Segoe UI", 13F);
             lblTitulo.Location = new System.Drawing.Point(20, 15); lblTitulo.AutoSize = true;
 
             lblFiltro.Text = "Filtro:"; lblFiltro.Location = new System.Drawing.Point(20, 65); lblFiltro.AutoSize = true;
@@ -54,7 +54,7 @@ namespace WinForms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(450, 220);
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Buscar Artú€ulo";
+            Text = "Buscar Artículo";
             Controls.AddRange(new Control[] { lblTitulo, lblFiltro, cmbFiltro, lblValor1, numValor1, lblValor2, numValor2, btnBuscar, btnCerrar });
             ((System.ComponentModel.ISupportInitialize)numValor1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numValor2).EndInit();
